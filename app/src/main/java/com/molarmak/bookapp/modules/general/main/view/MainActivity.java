@@ -12,20 +12,23 @@ import android.support.v7.widget.Toolbar;
 
 import com.molarmak.bookapp.R;
 import com.molarmak.bookapp.modules.general.main.model.items.Book;
+import com.molarmak.bookapp.modules.general.main.presenter.MainPresenter;
+import com.molarmak.bookapp.modules.general.main.presenter.MainPresenterCallback;
 import com.molarmak.bookapp.modules.general.main.view.adapters.RecycleViewAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainView {
 
     private SwipeRefreshLayout swipeContainer;
     private RecyclerView recycler;
     private RecycleViewAdapter adapter = new RecycleViewAdapter();
     private CoordinatorLayout mainLayout;
     private FloatingActionButton fab;
+
+    private MainPresenterCallback presenter = new MainPresenter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,37 +49,31 @@ public class MainActivity extends AppCompatActivity {
             recycler.setLayoutManager(new LinearLayoutManager(this));
             recycler.setAdapter(adapter);
             recycler.setItemAnimator(new SlideInUpAnimator());
-            swipeContainer.setOnRefreshListener(this::addBooksInList);
-            addBooksInList();
+            swipeContainer.setOnRefreshListener(() -> presenter.onLoadBookList(MainActivity.this));
+            presenter.onLoadBookList(this);
         } catch (Exception e) {
-            onError("Setup Book List Error");
+            onError("Setup Book List error");
             e.printStackTrace();
         }
     }
 
-    private void addBooksInList() {
+    @Override
+    public void onError(String error) {
         try {
-            List<Book> fakeData = new ArrayList<>();
-            for(int i = 0; i < 5; i++) {
-                fakeData.add(new Book());
-            }
+            Snackbar.make(mainLayout, error, Snackbar.LENGTH_LONG).show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    @Override
+    public void onBookListLoaded(List<Book> bookList) {
+        try {
             adapter.clear();
-            for(int i = 0; i < fakeData.size(); i++) {
-                adapter.add(fakeData.get(i));
-            }
+            adapter.addBookList(bookList);
             swipeContainer.setRefreshing(false);
         } catch (Exception e) {
-            onError("Add Book in List Error");
-            e.printStackTrace();
-        }
-    }
-
-    private void onError(String error) {
-        try {
-            Snackbar.make(mainLayout, error, Snackbar.LENGTH_LONG)
-                    .show();
-        } catch (Exception e) {
+            onError("Add Book in List error");
             e.printStackTrace();
         }
     }

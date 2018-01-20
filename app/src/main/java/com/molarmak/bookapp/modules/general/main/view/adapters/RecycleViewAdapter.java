@@ -23,10 +23,12 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     private List<Book> repoList = new ArrayList<>();
     private Context context;
 
-    public void add(Book item) {
+    public void addBookList(List<Book> bookList) {
         try {
-            repoList.add(item);
-            notifyItemInserted(repoList.size());
+            for(int i = 0; i < bookList.size(); i++) {
+                repoList.add(bookList.get(i));
+                notifyItemInserted(repoList.size());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
