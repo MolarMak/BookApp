@@ -1,6 +1,6 @@
 package com.molarmak.bookapp.modules.general.main.view;
 
-import com.molarmak.bookapp.modules.general.main.model.items.Book;
+import com.molarmak.bookapp.storage.Items.Book;
 
 import java.util.List;
 

@@ -11,10 +11,10 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import com.molarmak.bookapp.R;
-import com.molarmak.bookapp.modules.general.main.model.items.Book;
 import com.molarmak.bookapp.modules.general.main.presenter.MainPresenter;
 import com.molarmak.bookapp.modules.general.main.presenter.MainPresenterCallback;
 import com.molarmak.bookapp.modules.general.main.view.adapters.RecycleViewAdapter;
+import com.molarmak.bookapp.storage.Items.Book;
 
 import java.util.List;
 
@@ -49,8 +49,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
             recycler.setLayoutManager(new LinearLayoutManager(this));
             recycler.setAdapter(adapter);
             recycler.setItemAnimator(new SlideInUpAnimator());
-            swipeContainer.setOnRefreshListener(() -> presenter.onLoadBookList(MainActivity.this));
-            presenter.onLoadBookList(this);
+            swipeContainer.setOnRefreshListener(() -> presenter.onStartLoadBookList(MainActivity.this));
+            presenter.onStartLoadBookList(this);
         } catch (Exception e) {
             onError("Setup Book List error");
             e.printStackTrace();
@@ -69,11 +69,18 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     public void onBookListLoaded(List<Book> bookList) {
         try {
-            adapter.clear();
-            adapter.addBookList(bookList);
-            swipeContainer.setRefreshing(false);
+            runOnUiThread(() -> {
+                try {
+                    adapter.clear();
+                    adapter.addBookList(bookList);
+                    swipeContainer.setRefreshing(false);
+                } catch (Exception e) {
+                    onError("Add Book in List error");
+                    e.printStackTrace();
+                }
+            });
         } catch (Exception e) {
-            onError("Add Book in List error");
+            onError("Run On Main Thread error");
             e.printStackTrace();
         }
     }

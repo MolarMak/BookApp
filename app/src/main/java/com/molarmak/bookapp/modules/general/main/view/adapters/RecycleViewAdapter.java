@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.molarmak.bookapp.R;
-import com.molarmak.bookapp.modules.general.main.model.items.Book;
+import com.molarmak.bookapp.storage.Items.Book;
 
 import java.util.ArrayList;
 import java.util.List;
