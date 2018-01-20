@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.molarmak.bookapp.WelcomeActivity">
+    tools:context="com.molarmak.bookapp.modules.welcome.WelcomeActivity">
 
     <TextView
         android:layout_width="match_parent"
@@ -21,6 +21,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:textColor="@android:color/white"
         android:text="Начать"/>
 
 </RelativeLayout>

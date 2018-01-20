@@ -1,10 +1,12 @@
-package com.molarmak.bookapp;
+package com.molarmak.bookapp.modules.welcome;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.molarmak.bookapp.R;
 
 public class WelcomeActivity extends AppCompatActivity {
 

@@ -1,5 +1,6 @@
-package com.molarmak.bookapp;
+package com.molarmak.bookapp.modules.welcome;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,7 +14,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.molarmak.bookapp.R;
 import com.molarmak.bookapp.helper.SetImage;
+import com.molarmak.bookapp.modules.general.MainActivity;
 import com.rd.PageIndicatorView;
 
 public class InfoActivity extends AppCompatActivity {
@@ -43,7 +46,7 @@ public class InfoActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     try {
                         finish();
-                //        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
