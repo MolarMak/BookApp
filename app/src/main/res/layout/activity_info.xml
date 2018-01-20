@@ -18,7 +18,7 @@
         android:layout_alignParentBottom="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        attrs:piv_selectedColor="@android:color/black"
+        attrs:piv_selectedColor="@color/colorPrimaryDark"
         attrs:piv_unselectedColor="@android:color/darker_gray"
         attrs:piv_count="3"
         attrs:piv_animationDuration="100"
@@ -31,13 +31,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_alignParentBottom="true"
-        android:background="@android:color/darker_gray">
+        android:background="@color/colorPrimaryDark">
 
         <TextView
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="15dp"
+            android:textColor="@android:color/white"
             android:text="Пропустить"/>
 
     </LinearLayout>

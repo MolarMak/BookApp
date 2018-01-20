@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.molarmak.bookapp.R;
 import com.molarmak.bookapp.helper.SetImage;
-import com.molarmak.bookapp.modules.general.MainActivity;
+import com.molarmak.bookapp.modules.general.main.view.MainActivity;
 import com.rd.PageIndicatorView;
 
 public class InfoActivity extends AppCompatActivity {
@@ -41,15 +41,12 @@ public class InfoActivity extends AppCompatActivity {
             PageIndicatorView pageIndicatorView = (PageIndicatorView) findViewById(R.id.pageIndicatorView);
             pageIndicatorView.setViewPager(mViewPager);
 
-            skipButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    try {
-                        finish();
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+            skipButton.setOnClickListener(view -> {
+                try {
+                    finish();
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             });
 
