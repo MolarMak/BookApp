@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.TextView;
 
 import com.molarmak.bookapp.R;
 import com.molarmak.bookapp.modules.general.main.presenter.MainPresenter;
@@ -24,8 +26,9 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     private SwipeRefreshLayout swipeContainer;
     private RecyclerView recycler;
-    private RecycleViewAdapter adapter = new RecycleViewAdapter();
+    private RecycleViewAdapter adapter;
     private CoordinatorLayout mainLayout;
+    private TextView textEmptyList;
     private FloatingActionButton fab;
 
     private MainPresenterCallback presenter = new MainPresenter();
@@ -38,7 +41,9 @@ public class MainActivity extends AppCompatActivity implements MainView {
         swipeContainer = findViewById(R.id.swipeContainer);
         swipeContainer.setColorSchemeResources(R.color.colorPrimaryDark);
         mainLayout = findViewById(R.id.mainLayout);
+        textEmptyList = findViewById(R.id.textEmptyList);
         fab = (FloatingActionButton) findViewById(R.id.fab);
+        adapter = new RecycleViewAdapter(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setupBookList();
@@ -81,6 +86,19 @@ public class MainActivity extends AppCompatActivity implements MainView {
             });
         } catch (Exception e) {
             onError("Run On Main Thread error");
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showEmptyList() {
+        try {
+            if(adapter.getItemCount() == 0) {
+                textEmptyList.setVisibility(View.VISIBLE);
+            } else {
+                textEmptyList.setVisibility(View.GONE);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

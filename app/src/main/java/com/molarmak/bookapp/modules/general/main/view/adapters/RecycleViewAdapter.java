@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.molarmak.bookapp.R;
 import com.molarmak.bookapp.helper.OnSwipeTouchListener;
+import com.molarmak.bookapp.modules.general.main.view.MainView;
 import com.molarmak.bookapp.storage.Items.Book;
 
 import java.util.ArrayList;
@@ -30,6 +31,11 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     private List<Book> repoList = new ArrayList<>();
     private int pxToMove;
     private Context context;
+    private MainView mainView;
+
+    public RecycleViewAdapter(MainView mainView) {
+        this.mainView = mainView;
+    }
 
     public void addBookList(List<Book> bookList) {
         try {
@@ -37,6 +43,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                 repoList.add(bookList.get(i));
                 notifyItemInserted(repoList.size());
             }
+            mainView.showEmptyList();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -132,6 +139,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                     swipeTouchListener.onSwipeRight();
                     repoList.remove(i);
                     notifyDataSetChanged();
+                    if(repoList.size() == 0)
+                        mainView.showEmptyList();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
