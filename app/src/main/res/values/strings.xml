@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">BookApp</string>
+    <string name="info_desc1">Читайте книги!</string>
+    <string name="info_desc2">Добавляйте или убирайте!</string>
+    <string name="info_desc3">Изменяйте уже добавленные!</string>
 </resources>
