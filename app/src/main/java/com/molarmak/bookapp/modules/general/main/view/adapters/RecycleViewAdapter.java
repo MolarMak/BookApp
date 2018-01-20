@@ -1,14 +1,19 @@
 package com.molarmak.bookapp.modules.general.main.view.adapters;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.molarmak.bookapp.R;
+import com.molarmak.bookapp.helper.OnSwipeTouchListener;
 import com.molarmak.bookapp.storage.Items.Book;
 
 import java.util.ArrayList;
@@ -21,6 +26,7 @@ import java.util.List;
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.ViewHolder> {
 
     private List<Book> repoList = new ArrayList<>();
+    private int pxToMove;
     private Context context;
 
     public void addBookList(List<Book> bookList) {
@@ -45,19 +51,6 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         }
     }
 
-    public void del(Book item) {
-        try {
-            for(int i = 0; i < repoList.size(); i++) {
-             //   if(item.getId().equals(repoList.get(i).getId())) {
-             //       repoList.remove(repoList.get(i));
-             //       notifyItemRemoved(i);
-           //     }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         context = viewGroup.getContext();
@@ -70,7 +63,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         try {
             final Book Item = repoList.get(i);
             if (Item != null) {
-
+                setBasketView(viewHolder, i);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -82,10 +75,54 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         return repoList.size();
     }
 
+    private void setBasketView(ViewHolder viewHolder, final int i) {
+        try {
+            Resources r = context.getResources();
+            pxToMove = (int) -(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60, r.getDisplayMetrics()));
+            final OnSwipeTouchListener swipeTouchListener = new OnSwipeTouchListener(context) {
+                @Override
+                public void onSwipeLeft() {
+                    if(viewHolder.infoLayout.getTranslationX() == 0) {
+                        viewHolder.binLayout.setVisibility(View.VISIBLE);
+                        viewHolder.binLayout.setAlpha(0.0f);
+                        viewHolder.binLayout.animate().alpha(1.0f).setDuration(300).start();
+                        viewHolder.infoLayout.animate().translationX(pxToMove).setDuration(250).start();
+                    }
+                }
+                @Override
+                public void onSwipeRight() {
+                    if(viewHolder.infoLayout.getTranslationX() != 0) {
+                        viewHolder.binLayout.setVisibility(View.GONE);
+                        viewHolder.infoLayout.animate().translationX(0).setDuration(250).start();
+                    }
+                }
+                @Override
+                public void onSingleTapUp() {
+                    if(viewHolder.infoLayout.getTranslationX() != 0) {
+                        onSwipeRight();
+                    }
+                }
+            };
+            viewHolder.itemView.setOnTouchListener(swipeTouchListener);
+            viewHolder.binLayout.setOnClickListener(view -> {
+                try {
+                    swipeTouchListener.onSwipeRight();
+                    repoList.remove(i);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView bookImage;
         private TextView bookName, bookAuthor, bookGenre, bookPages;
+        private LinearLayout infoLayout;
+        private RelativeLayout binLayout;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -94,6 +131,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             bookAuthor = itemView.findViewById(R.id.bookAuthor);
             bookGenre = itemView.findViewById(R.id.bookGenre);
             bookPages = itemView.findViewById(R.id.bookPages);
+            infoLayout = itemView.findViewById(R.id.infoLayout);
+            binLayout = itemView.findViewById(R.id.binLayout);
         }
     }
 }
