@@ -1,10 +1,12 @@
 package com.molarmak.bookapp.modules.general.main.view.adapters;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 
 import com.molarmak.bookapp.R;
 import com.molarmak.bookapp.helper.OnSwipeTouchListener;
+import com.molarmak.bookapp.modules.general.main.presenter.MainPresenterCallback;
 import com.molarmak.bookapp.modules.general.main.view.MainView;
 import com.molarmak.bookapp.storage.Items.Book;
 
@@ -32,9 +35,12 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     private int pxToMove;
     private Context context;
     private MainView mainView;
+    private MainPresenterCallback presenter;
+    private final String TAG = "RecyclerMain";
 
-    public RecycleViewAdapter(MainView mainView) {
+    public RecycleViewAdapter(MainView mainView, MainPresenterCallback presenter) {
         this.mainView = mainView;
+        this.presenter = presenter;
     }
 
     public void addBookList(List<Book> bookList) {
@@ -44,6 +50,21 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                 notifyItemInserted(repoList.size());
             }
             mainView.showEmptyList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void removeBook(String token) {
+        try {
+            for(int i = 0; i < repoList.size(); i++) {
+                if(repoList.get(i).getToken().equals(token)) {
+                    repoList.remove(repoList.get(i));
+                    notifyItemRemoved(i);
+                    if(repoList.size() == 0)
+                        mainView.showEmptyList();
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -72,7 +93,10 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         try {
             final Book Item = repoList.get(i);
             if (Item != null) {
-                setBasketView(viewHolder, i);
+                if(Item.getToken() != null) {
+                    setBasketView(viewHolder, Item.getToken());
+                } else Log.e(TAG, "token of book null");
+
                 if(Item.getImage() != null) {
                     if(Item.getImage().length > 0) {
                         setImage(viewHolder.bookImage, Item.getImage());
@@ -105,7 +129,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         return repoList.size();
     }
 
-    private void setBasketView(ViewHolder viewHolder, int i) {
+    private void setBasketView(ViewHolder viewHolder, String token) {
         try {
             Resources r = context.getResources();
             pxToMove = (int) -(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60, r.getDisplayMetrics()));
@@ -137,10 +161,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             viewHolder.binLayout.setOnClickListener(view -> {
                 try {
                     swipeTouchListener.onSwipeRight();
-                    repoList.remove(i);
-                    notifyDataSetChanged();
-                    if(repoList.size() == 0)
-                        mainView.showEmptyList();
+                    presenter.onStartDeleteBook(token);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

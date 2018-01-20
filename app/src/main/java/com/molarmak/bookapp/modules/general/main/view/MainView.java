@@ -11,5 +11,6 @@ import java.util.List;
 public interface MainView {
     void onError(String error);
     void onBookListLoaded(List<Book> bookList);
+    void onBookDeleted(String token);
     void showEmptyList();
 }

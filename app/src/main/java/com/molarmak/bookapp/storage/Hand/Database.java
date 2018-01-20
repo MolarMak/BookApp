@@ -12,11 +12,23 @@ import java.util.List;
 public class Database {
 
     private void saveBookToDatabase(Book book) {
-
+        //todo generate token
     }
 
-    private void deleteBookFromDatabase(Book book) {
-
+    public boolean deleteBookFromDatabase(String token) {
+        try {
+            List<Book> bookList = HelperFactory.getHelper().getBookDAO().getAllBooks();
+            for(Book book : bookList) {
+                if(book.getToken().equals(token)) {
+                    HelperFactory.getHelper().getBookDAO().delete(book);
+                    return true;
+                }
+            }
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public List<Book> loadBookList() {

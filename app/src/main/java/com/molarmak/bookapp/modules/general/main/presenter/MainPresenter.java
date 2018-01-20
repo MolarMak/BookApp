@@ -40,6 +40,26 @@ public class MainPresenter implements MainPresenterCallback {
     }
 
     @Override
+    public void onStartDeleteBook(String token) {
+        try {
+            service.deleteBookFromDatabase(this, token);
+        } catch (Exception e) {
+            onError("Unhandled error when start delete book");
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onEndDeleteBook(String token) {
+        try {
+            view.onBookDeleted(token);
+        } catch (Exception e) {
+            onError("Unhandled error when end delete book");
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void onError(String error) {
         if(view != null) {
             view.onError(error);

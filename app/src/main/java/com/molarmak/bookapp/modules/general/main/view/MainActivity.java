@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         mainLayout = findViewById(R.id.mainLayout);
         textEmptyList = findViewById(R.id.textEmptyList);
         fab = (FloatingActionButton) findViewById(R.id.fab);
-        adapter = new RecycleViewAdapter(this);
+        adapter = new RecycleViewAdapter(this, presenter);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setupBookList();
@@ -65,8 +65,15 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @Override
     public void onError(String error) {
         try {
-            Snackbar.make(mainLayout, error, Snackbar.LENGTH_LONG).show();
+            runOnUiThread(() -> {
+                try {
+                    Snackbar.make(mainLayout, error, Snackbar.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
         } catch (Exception e) {
+            onError("Run On Main Thread error");
             e.printStackTrace();
         }
     }
@@ -79,6 +86,23 @@ public class MainActivity extends AppCompatActivity implements MainView {
                     adapter.clear();
                     adapter.addBookList(bookList);
                     swipeContainer.setRefreshing(false);
+                } catch (Exception e) {
+                    onError("Add Book in List error");
+                    e.printStackTrace();
+                }
+            });
+        } catch (Exception e) {
+            onError("Run On Main Thread error");
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onBookDeleted(String token) {
+        try {
+            runOnUiThread(() -> {
+                try {
+                    adapter.removeBook(token);
                 } catch (Exception e) {
                     onError("Add Book in List error");
                     e.printStackTrace();

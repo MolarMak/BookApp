@@ -12,15 +12,19 @@ public class Book {
 
     public static final String TABLE_NAME_BOOKS = "books";
 
-    private static final String FIELD_NAME_ID = "id";
-    private static final String FIELD_NAME_IMAGE = "image";
-    private static final String FIELD_NAME_BOOK_NAME = "book_name";
-    private static final String FIELD_NAME_AUTHOR = "author";
-    private static final String FIELD_NAME_GENDER = "gender";
-    private static final String FIELD_NAME_PAGES = "pages";
+    public static final String FIELD_NAME_ID = "id";
+    public static final String FIELD_NAME_TOKEN = "token";
+    public static final String FIELD_NAME_IMAGE = "image";
+    public static final String FIELD_NAME_BOOK_NAME = "book_name";
+    public static final String FIELD_NAME_AUTHOR = "author";
+    public static final String FIELD_NAME_GENDER = "gender";
+    public static final String FIELD_NAME_PAGES = "pages";
 
     @DatabaseField(columnName = FIELD_NAME_ID, generatedId = true)
     private int id;
+
+    @DatabaseField(columnName = FIELD_NAME_TOKEN)
+    private String token;
 
     @DatabaseField(columnName = FIELD_NAME_IMAGE, dataType = DataType.BYTE_ARRAY)
     private byte[] image;
@@ -36,6 +40,14 @@ public class Book {
 
     @DatabaseField(columnName = FIELD_NAME_PAGES)
     private int pages;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public byte[] getImage() {
         return image;

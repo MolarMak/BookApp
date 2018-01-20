@@ -24,7 +24,7 @@ import java.sql.SQLException;
 public class DataStorage extends OrmLiteSqliteOpenHelper {
 
     private static final String DATABASE_NAME = "database.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     private BookDAO bookDAO = null;
 
@@ -74,8 +74,9 @@ public class DataStorage extends OrmLiteSqliteOpenHelper {
             Book bookDB = new Book();
 
             for (int i = 0; i < 3; i++) {
+                bookDB.setToken("exampleToken"+i);
                 bookDB.setImage(loadTestImage(context));
-                bookDB.setName("Алиса в стране чудес " + i + 1);
+                bookDB.setName("Алиса в стране чудес [Test " + i + "]");
                 bookDB.setAuthor("Льюис Кэрролл");
                 bookDB.setGender("Фантастика");
                 bookDB.setPages(450);

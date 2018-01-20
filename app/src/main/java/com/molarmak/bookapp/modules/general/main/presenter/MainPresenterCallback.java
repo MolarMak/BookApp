@@ -12,5 +12,7 @@ import java.util.List;
 public interface MainPresenterCallback {
     void onStartLoadBookList(MainView view);
     void onEndLoadBookList(List<Book> bookList);
+    void onStartDeleteBook(String token);
+    void onEndDeleteBook(String token);
     void onError(String error);
 }
