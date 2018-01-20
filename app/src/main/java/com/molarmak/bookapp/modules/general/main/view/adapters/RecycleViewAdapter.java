@@ -2,6 +2,8 @@ package com.molarmak.bookapp.modules.general.main.view.adapters;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -64,6 +66,27 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             final Book Item = repoList.get(i);
             if (Item != null) {
                 setBasketView(viewHolder, i);
+                if(Item.getImage() != null) {
+                    if(Item.getImage().length > 0) {
+                        setImage(viewHolder.bookImage, Item.getImage());
+                    } else setImage(viewHolder.bookImage, new byte[5]);
+                } else setImage(viewHolder.bookImage, new byte[5]);
+
+                if(Item.getName() != null) {
+                    viewHolder.bookName.setText(Item.getName());
+                } else viewHolder.bookName.setText("");
+
+                if(Item.getAuthor() != null) {
+                    viewHolder.bookAuthor.setText(Item.getAuthor());
+                } else viewHolder.bookAuthor.setText("");
+
+                if(Item.getGender() != null) {
+                    viewHolder.bookGenre.setText(Item.getGender());
+                } else viewHolder.bookGenre.setText("");
+
+                if(Item.getPages() > 0) {
+                    viewHolder.bookPages.setText(Item.getPages() + "стр.");
+                } else viewHolder.bookPages.setText("");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -75,7 +98,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         return repoList.size();
     }
 
-    private void setBasketView(ViewHolder viewHolder, final int i) {
+    private void setBasketView(ViewHolder viewHolder, int i) {
         try {
             Resources r = context.getResources();
             pxToMove = (int) -(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60, r.getDisplayMetrics()));
@@ -108,10 +131,22 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                 try {
                     swipeTouchListener.onSwipeRight();
                     repoList.remove(i);
+                    notifyDataSetChanged();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setImage(ImageView imageView, byte[] data) {
+        try {
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inMutable = true;
+            Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length, options);
+            imageView.setImageBitmap(bmp);
         } catch (Exception e) {
             e.printStackTrace();
         }

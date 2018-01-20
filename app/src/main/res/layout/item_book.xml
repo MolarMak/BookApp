@@ -16,8 +16,7 @@
             android:layout_marginStart="16dp"
             android:layout_width="55dp"
             android:layout_height="55dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/alice_test_book"/>
+            android:scaleType="centerCrop"/>
 
         <LinearLayout
             android:layout_marginStart="16dp"
@@ -33,15 +32,13 @@
                 android:layout_height="wrap_content"
                 android:textSize="17sp"
                 android:textColor="@android:color/black"
-                android:singleLine="true"
-                android:text="Alice in Wonderland"/>
+                android:singleLine="true"/>
 
             <TextView
                 android:id="@+id/bookAuthor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:text="Lewis Carrol"/>
+                android:singleLine="true"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -51,15 +48,13 @@
                 <TextView
                     android:id="@+id/bookGenre"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Fantastic"/>
+                    android:layout_height="wrap_content"/>
 
                 <TextView
                     android:id="@+id/bookPages"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:text="275 p."/>
+                    android:layout_alignParentEnd="true"/>
 
             </RelativeLayout>
 
