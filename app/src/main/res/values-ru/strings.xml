@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">BookApp</string>
+    <string name="info_desc1">Просматривайте список книг!</string>
+    <string name="info_desc2">Пополняйте или очищайте список книг!</string>
+    <string name="info_desc3">Изменяйте уже добавленные книги!</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="hintName">Название книги</string>
+    <string name="hintAuthor">Имя автора</string>
+    <string name="hintGenre">Жанр</string>
+    <string name="hintPages">Колличество страниц</string>
+    <string name="skip">Пропустить</string>
+    <string name="emptyList">Список книг пуст</string>
+    <string name="welcome">Добро пожаловать в BookApp</string>
+    <string name="start">Начать</string>
+    <string name="errorAddBook">Неизвестная ошибка при добавлении книги"</string>
+    <string name="errorRemakeBook">Неизвестная ошибка при изменении</string>
+    <string name="errorLoadBookInfo">Ошибка при старте загрузки информации о книге</string>
+    <string name="errorInput">Ошибка ввода данных</string>
+    <string name="errorPhotoInput">Ошибка при заполнении фотографии</string>
+    <string name="errorNameInput">Ошибка при заполнении имени книги</string>
+    <string name="errorAuthorInput">Ошибка при заполнении автора книги</string>
+    <string name="errorGenreInput">Ошибка при заполнении жанра книги</string>
+    <string name="errorPagesInput">Ошибка при заполнении страниц книги</string>
+    <string name="add">Добавить</string>
+    <string name="change">Изменить</string>
+    <string name="errorDeleteBook">Неизвестная ошибка при удалении книги</string>
+    <string name="errorLoadBookList">Неизвестная ошибка при загрузке списка книг</string>
+    <string name="pages">стр.</string>
+    <string name="setupBookListError">Ошибка при показе списка книг</string>
+    <string name="runMainThreadError">Ошибка работы главного потока</string>
+    <string name="addBookInListError">Ошибка добавления ениги в список</string>
+</resources>
