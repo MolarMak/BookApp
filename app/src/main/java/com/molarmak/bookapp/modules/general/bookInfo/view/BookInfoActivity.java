@@ -23,6 +23,9 @@ import com.molarmak.bookapp.storage.Items.Book;
 
 import java.io.ByteArrayOutputStream;
 
+/**
+ * Class View, display UI for add or remake book info
+ */
 public class BookInfoActivity extends AppCompatActivity implements BookInfoView {
 
     private ImageView bookImage;
@@ -58,6 +61,12 @@ public class BookInfoActivity extends AppCompatActivity implements BookInfoView 
         }
     }
 
+    /**
+     * Method set image from gallery to imageView
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -74,6 +83,10 @@ public class BookInfoActivity extends AppCompatActivity implements BookInfoView 
         }
     }
 
+    /**
+     * Method for get input data to Book Object
+     * @return
+     */
     @Override
     public Book getBookInfo() {
         Book book = new Book();
@@ -89,6 +102,10 @@ public class BookInfoActivity extends AppCompatActivity implements BookInfoView 
         return book;
     }
 
+    /**
+     * Method show error to user in special TextView
+     * @param error
+     */
     @Override
     public void onError(String error) {
         try {
@@ -106,6 +123,9 @@ public class BookInfoActivity extends AppCompatActivity implements BookInfoView 
         }
     }
 
+    /**
+     * When book added successful, close the page
+     */
     @Override
     public void onBookAdded() {
         try {
@@ -119,12 +139,11 @@ public class BookInfoActivity extends AppCompatActivity implements BookInfoView 
         }
     }
 
-    @Override
-    public void onBookRemaded() {
-        finish();
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-    }
-
+    /**
+     * When data about book loaded from database, show it
+     * @param book
+     * Data need to remake available book info
+     */
     @Override
     public void onBookLoaded(Book book) {
         try{
@@ -146,6 +165,9 @@ public class BookInfoActivity extends AppCompatActivity implements BookInfoView 
         }
     }
 
+    /**
+     * When back pressed, don't close the app and show previous screen
+     */
     @Override
     public void onBackPressed() {
         try {
@@ -156,6 +178,10 @@ public class BookInfoActivity extends AppCompatActivity implements BookInfoView 
         }
     }
 
+    /**
+     * It's be two ways to open this screen - for add new book or remake information in available
+     * Method check the way and setup current need clickListener and other information
+     */
     private void setupButtonClick() {
         try {
             String bookChangeType = getIntent().getStringExtra(BOOK_TYPE);
@@ -189,6 +215,11 @@ public class BookInfoActivity extends AppCompatActivity implements BookInfoView 
         }
     }
 
+    /**
+     * Method for convert ImageView Bitmap to byte array
+     * Need for save image into database
+     * @return
+     */
     private byte[] getByteArray() {
         try {
             BitmapDrawable drawable = (BitmapDrawable) bookImage.getDrawable();
@@ -202,6 +233,10 @@ public class BookInfoActivity extends AppCompatActivity implements BookInfoView 
         return new byte[0];
     }
 
+    /**
+     * Method for convert user input to pages number
+     * @return
+     */
     private int getPages() {
         try {
             int i = Integer.parseInt(bookPages.getText().toString());

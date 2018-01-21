@@ -6,6 +6,9 @@ import com.molarmak.bookapp.storage.Items.Book;
  * Created by Maxim on 1/21/18.
  */
 
+/**
+ * Class for provide test book for Unit Testing
+ */
 public class TestHelper {
     public static Book generateTestBook() {
         Book book = new Book();

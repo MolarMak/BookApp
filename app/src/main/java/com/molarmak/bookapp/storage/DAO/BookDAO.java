@@ -11,6 +11,9 @@ import java.util.List;
  * Created by Maxim on 1/20/18.
  */
 
+/**
+ * Class need for create ORM connection with database
+ */
 public class BookDAO extends BaseDaoImpl<Book,Integer> {
     public BookDAO(ConnectionSource connectionSource, Class<Book> dataClass) throws SQLException {
         super(connectionSource, dataClass);

@@ -7,6 +7,11 @@ import com.j256.ormlite.table.DatabaseTable;
 /**
  * Created by Maxim on 1/20/18.
  */
+
+/**
+ * Class of Book
+ * Markup for storage in the database
+ */
 @DatabaseTable(tableName = Book.TABLE_NAME_BOOKS)
 public class Book {
 

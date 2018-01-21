@@ -32,6 +32,9 @@ import java.util.List;
  * Created by maxmamuta on 8/16/17.
  */
 
+/**
+ * Class Adapter to show book list items
+ */
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.ViewHolder> {
 
     private List<Book> repoList = new ArrayList<>();
@@ -46,6 +49,11 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         this.presenter = presenter;
     }
 
+    /**
+     * Method for add book list
+     * @param bookList
+     * Items added one by one, because it needed for animation
+     */
     public void addBookList(List<Book> bookList) {
         try {
             for(int i = 0; i < bookList.size(); i++) {
@@ -58,6 +66,10 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         }
     }
 
+    /**
+     * Method for remove book from list by token
+     * @param token
+     */
     public void removeBook(String token) {
         try {
             for(int i = 0; i < repoList.size(); i++) {
@@ -73,6 +85,10 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         }
     }
 
+    /**
+     * Method for clear list
+     * Items remove one by one, because it needed for animation
+     */
     public void clear() {
         try {
             for(int i = repoList.size()-1; i>=0; i--) {
@@ -91,6 +107,11 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         return new ViewHolder(v);
     }
 
+    /**
+     * Methods for display data, check it before add
+     * @param viewHolder
+     * @param i
+     */
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, int i) {
         try {
@@ -132,6 +153,11 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         return repoList.size();
     }
 
+    /**
+     * Method create posibility to swipe-to-delete and click on item
+     * @param viewHolder
+     * @param token
+     */
     private void setBasketView(ViewHolder viewHolder, String token) {
         try {
             Resources r = context.getResources();
@@ -176,6 +202,11 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         }
     }
 
+    /**
+     * Item open BookInfoActivity with filled data about current book
+     * when user click on item
+     * @param token
+     */
     private void navigateToRemakeScreen(String token) {
         try {
             ((AppCompatActivity) context).finish();

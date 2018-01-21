@@ -7,6 +7,12 @@ import java.security.SecureRandom;
  */
 
 public class GenerateToken {
+
+    /**
+     * function for generate secure book token as String
+     * @return
+     */
+
     public static String generate() {
         SecureRandom random = new SecureRandom();
         byte bytes[] = new byte[20];

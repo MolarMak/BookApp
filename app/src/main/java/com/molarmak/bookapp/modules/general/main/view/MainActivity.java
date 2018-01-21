@@ -24,6 +24,9 @@ import java.util.List;
 
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
+/**
+ * Class View, display UI for general app screen
+ */
 public class MainActivity extends AppCompatActivity implements MainView {
 
     private SwipeRefreshLayout swipeContainer;
@@ -61,6 +64,10 @@ public class MainActivity extends AppCompatActivity implements MainView {
         setupBookList();
     }
 
+    /**
+     * Prepare all page elements to show book list
+     * Call presenter to load available book list
+     */
     private void setupBookList() {
         try {
             recycler.setLayoutManager(new LinearLayoutManager(this));
@@ -74,6 +81,10 @@ public class MainActivity extends AppCompatActivity implements MainView {
         }
     }
 
+    /**
+     * Show errors in SnackBar
+     * @param error
+     */
     @Override
     public void onError(String error) {
         try {
@@ -90,6 +101,10 @@ public class MainActivity extends AppCompatActivity implements MainView {
         }
     }
 
+    /**
+     * When book list loaded, display it
+     * @param bookList
+     */
     @Override
     public void onBookListLoaded(List<Book> bookList) {
         try {
@@ -109,6 +124,10 @@ public class MainActivity extends AppCompatActivity implements MainView {
         }
     }
 
+    /**
+     * When book deleted in database, remove it from view
+     * @param token
+     */
     @Override
     public void onBookDeleted(String token) {
         try {
@@ -126,6 +145,9 @@ public class MainActivity extends AppCompatActivity implements MainView {
         }
     }
 
+    /**
+     * Method check that book list is empty, and show message
+     */
     @Override
     public void showEmptyList() {
         try {

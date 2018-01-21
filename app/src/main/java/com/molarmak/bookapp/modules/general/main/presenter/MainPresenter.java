@@ -15,6 +15,10 @@ import java.util.List;
  * Created by Maxim on 1/20/18.
  */
 
+/**
+ * Class Presenter for MainActivity
+ * Connect BookService and MainActivity
+ */
 public class MainPresenter implements MainPresenterCallback {
 
     private MainView view;
@@ -22,6 +26,10 @@ public class MainPresenter implements MainPresenterCallback {
     private Context context = MyApplication.getContext();
     private final String TAG = "MainPresenter";
 
+    /**
+     * Method call when MainActivity started. Call methods for load available book list
+     * @param view
+     */
     @Override
     public void onStartLoadBookList(MainView view) {
         try {
@@ -33,6 +41,10 @@ public class MainPresenter implements MainPresenterCallback {
         }
     }
 
+    /**
+     * Method call when book list loaded
+     * @param bookList
+     */
     @Override
     public void onEndLoadBookList(List<Book> bookList) {
         try {
@@ -43,6 +55,11 @@ public class MainPresenter implements MainPresenterCallback {
         }
     }
 
+    /**
+     * Call when user want to delete book
+     * @param token
+     * delete book bu token in database
+     */
     @Override
     public void onStartDeleteBook(String token) {
         try {
@@ -53,6 +70,10 @@ public class MainPresenter implements MainPresenterCallback {
         }
     }
 
+    /**
+     * Methods call when book deleted successful
+     * @param token
+     */
     @Override
     public void onEndDeleteBook(String token) {
         try {
@@ -63,6 +84,10 @@ public class MainPresenter implements MainPresenterCallback {
         }
     }
 
+    /**
+     * Show error
+     * @param error
+     */
     @Override
     public void onError(String error) {
         if(view != null) {

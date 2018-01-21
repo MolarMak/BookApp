@@ -11,8 +11,16 @@ import java.util.List;
  * Created by Maxim on 1/20/18.
  */
 
+/**
+ * Methods encapsulate work with database
+ */
 public class Database {
 
+    /**
+     * Method for save new book in database
+     * @param book
+     * @return true if success, false if not
+     */
     public boolean saveBookToDatabase(Book book) {
         try {
             book.setToken(GenerateToken.generate());
@@ -24,6 +32,11 @@ public class Database {
         return false;
     }
 
+    /**
+     * Method for delete book from database
+     * @param token
+     * @return true if delete is success, false if not
+     */
     public boolean deleteBookFromDatabase(String token) {
         try {
             List<Book> bookList = HelperFactory.getHelper().getBookDAO().getAllBooks();
@@ -40,6 +53,11 @@ public class Database {
         }
     }
 
+    /**
+     * Method for remake information about available book
+     * @param book
+     * @return true if success, false if not
+     */
     public boolean remakeBookInDatabase(Book book) {
         try {
             UpdateBuilder<Book, Integer> updateBuilder = HelperFactory.getHelper().getBookDAO().updateBuilder();
@@ -57,6 +75,10 @@ public class Database {
         return false;
     }
 
+    /**
+     * Method return available book list from database
+     * @return
+     */
     public List<Book> loadBookList() {
         try {
             return HelperFactory.getHelper().getBookDAO().getAllBooks();
@@ -66,6 +88,11 @@ public class Database {
         return new ArrayList<>();
     }
 
+    /**
+     * Method return Book by token
+     * @param token
+     * @return Book if by they token is available, null if not
+     */
     public Book getBookByToken(String token) {
         try {
             List<Book> bookList = loadBookList();

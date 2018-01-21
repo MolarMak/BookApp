@@ -19,6 +19,10 @@ import com.molarmak.bookapp.helper.SetImage;
 import com.molarmak.bookapp.modules.general.main.view.MainActivity;
 import com.rd.PageIndicatorView;
 
+/**
+ * Class intro in app
+ * Display information about app
+ */
 public class InfoActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;

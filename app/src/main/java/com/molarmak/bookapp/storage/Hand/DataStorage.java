@@ -21,6 +21,9 @@ import java.sql.SQLException;
  * Created by Maxim on 7/18/2017.
  */
 
+/**
+ * Class shell for ORM with SQLite
+ */
 public class DataStorage extends OrmLiteSqliteOpenHelper {
 
     private static final String DATABASE_NAME = "database.db";
@@ -32,6 +35,11 @@ public class DataStorage extends OrmLiteSqliteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    /**
+     * Method first create database tables and insert test data
+     * @param database
+     * @param connectionSource
+     */
     @Override
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
         try {
@@ -42,6 +50,13 @@ public class DataStorage extends OrmLiteSqliteOpenHelper {
         }
     }
 
+    /**
+     * Method calls, when database version ++
+     * @param database
+     * @param connectionSource
+     * @param oldVersion
+     * @param newVersion
+     */
     @Override
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
         try {
@@ -52,12 +67,18 @@ public class DataStorage extends OrmLiteSqliteOpenHelper {
         }
     }
 
+    /**
+     * Method calls when database connection is closed
+     */
     @Override
     public void close() {
         bookDAO = null;
         super.close();
     }
 
+    /**
+     * @return Object for interaction with data
+     */
     public BookDAO getBookDAO() {
         if(bookDAO == null) {
             try {
@@ -69,6 +90,10 @@ public class DataStorage extends OrmLiteSqliteOpenHelper {
         return bookDAO;
     }
 
+    /**
+     * Method setup test data when database is created
+     * @param context
+     */
     private void setupEmptyDatabase(Context context) {
         try {
             Book bookDB = new Book();
@@ -88,6 +113,11 @@ public class DataStorage extends OrmLiteSqliteOpenHelper {
         }
     }
 
+    /**
+     * Method load test image for book from drawable
+     * @param context
+     * @return
+     */
     private byte[] loadTestImage(Context context) {
         try {
             Drawable d = context.getDrawable(R.drawable.alice_test_book);

@@ -11,8 +11,17 @@ import android.widget.ImageView;
  * Created by Maxim on 10/13/17.
  */
 
+/**
+ * Class for custom set Image
+ */
 public class SetImage {
 
+    /**
+     * function for set image from drawables to imageView
+     * @param imageResource
+     * @param imageView
+     * @param context
+     */
     public static void setImage(int imageResource, ImageView imageView, Context context) {
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
@@ -27,6 +36,11 @@ public class SetImage {
         }
     }
 
+    /**
+     * function for set image from byte array to imageView
+     * @param imageView
+     * @param data
+     */
     public static void setImage(ImageView imageView, byte[] data) {
         try {
             BitmapFactory.Options options = new BitmapFactory.Options();

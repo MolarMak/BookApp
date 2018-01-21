@@ -9,6 +9,10 @@ import com.molarmak.bookapp.storage.Hand.HelperFactory;
  * Created by Maxim on 1/20/18.
  */
 
+/**
+ * General class of application
+ * Initialize database connection and have possibility to return Context
+ */
 public class MyApplication extends Application {
 
     private static Context mContext;

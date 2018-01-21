@@ -8,6 +8,10 @@ import android.widget.Button;
 
 import com.molarmak.bookapp.R;
 
+/**
+ * Class intro
+ * First screen
+ */
 public class WelcomeActivity extends AppCompatActivity {
 
     private Button startButton;

@@ -13,6 +13,10 @@ import com.molarmak.bookapp.storage.Items.Book;
  * Created by Maxim on 1/21/18.
  */
 
+/**
+ * Class Presenter for BookInfoActivity
+ * Connect BookInfoService and BookInfoActivity
+ */
 public class BookInfoPresenter implements BookInfoPresenterCallback {
 
     private BookInfoView view;
@@ -20,6 +24,10 @@ public class BookInfoPresenter implements BookInfoPresenterCallback {
     private final String TAG = "BookInfoPresenter";
     private Context context = MyApplication.getContext();
 
+    /**
+     * Method call, when user input data for new book
+     * @param view
+     */
     @Override
     public void startAddBook(BookInfoView view) {
         try {
@@ -33,6 +41,9 @@ public class BookInfoPresenter implements BookInfoPresenterCallback {
         }
     }
 
+    /**
+     * Method Callback, execute when new book added successful
+     */
     @Override
     public void endAddBook() {
         if(view != null) {
@@ -40,6 +51,12 @@ public class BookInfoPresenter implements BookInfoPresenterCallback {
         } else Log.e(TAG, "view null, but bool added");
     }
 
+    /**
+     * Method call, when user click to remake information about available book
+     * Call method for load book from database by token
+     * @param token
+     * @param view
+     */
     @Override
     public void startLoadBookFromDB(String token, BookInfoView view) {
         try {
@@ -51,6 +68,10 @@ public class BookInfoPresenter implements BookInfoPresenterCallback {
         }
     }
 
+    /**
+     * Method Callback, execute when book info get from database and available to remake
+     * @param book
+     */
     @Override
     public void endLoadBookFromDB(Book book) {
         if(view != null) {
@@ -60,6 +81,12 @@ public class BookInfoPresenter implements BookInfoPresenterCallback {
         } else Log.e(TAG, "view null, but book loaded");
     }
 
+    /**
+     * Method call, when user remake some information about available book and want to save it
+     * @param token
+     * @param view
+     * Validate user input, and if successful save changes into database
+     */
     @Override
     public void startRemakeBook(String token, BookInfoView view) {
         try {
@@ -74,13 +101,20 @@ public class BookInfoPresenter implements BookInfoPresenterCallback {
         }
     }
 
+    /**
+     * Method Callback, says that new information for available book save successful
+     */
     @Override
     public void endRemakeBook() {
         if(view != null) {
-            view.onBookRemaded();
+            view.onBookAdded();
         } else Log.e(TAG, "view null, but book remaded");
     }
 
+    /**
+     * Method for show error
+     * @param error
+     */
     @Override
     public void onError(String error) {
         if(view != null) {
@@ -88,6 +122,12 @@ public class BookInfoPresenter implements BookInfoPresenterCallback {
         } else Log.e(TAG, "view null " + error);
     }
 
+    /**
+     * Method for validate user input
+     * @return
+     * Validate by book object, Name, Author, Genre, Pages
+     * Check all object is not null, String length > 0 and Pages > 0
+     */
     private Book startValidateInput() {
         try {
             Book book = view.getBookInfo();

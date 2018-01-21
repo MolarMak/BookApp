@@ -10,6 +10,5 @@ public interface BookInfoView {
     Book getBookInfo();
     void onError(String error);
     void onBookAdded();
-    void onBookRemaded();
     void onBookLoaded(Book book);
 }

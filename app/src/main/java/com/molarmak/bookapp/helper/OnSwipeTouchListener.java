@@ -5,6 +5,10 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
+/**
+ * class to execute swipe and touch
+ * Get the position of finger and detect swipe to left or swipe to right
+ */
 public class OnSwipeTouchListener implements View.OnTouchListener {
 
     private final GestureDetector gestureDetector;
