@@ -57,8 +57,24 @@ public class BookInfoPresenter implements BookInfoPresenterCallback {
     }
 
     @Override
-    public void startRemakeBook(BookInfoView view) {
+    public void startRemakeBook(String token, BookInfoView view) {
+        try {
+            this.view = view;
+            Book book = startValidateInput();
+            if(book != null) {
+                book.setToken(token);
+                service.remakeBook(book, this);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    @Override
+    public void endRemakeBook() {
+        if(view != null) {
+            view.onBookRemaded();
+        } else Log.e(TAG, "view null, but book remaded");
     }
 
     @Override

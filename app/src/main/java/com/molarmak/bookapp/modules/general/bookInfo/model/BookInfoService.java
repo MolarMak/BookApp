@@ -25,4 +25,14 @@ public class BookInfoService {
     public void getBook(String token, BookInfoPresenterCallback callback) {
         new Thread(() -> callback.endLoadBookFromDB(database.getBookByToken(token))).start();
     }
+
+    public void remakeBook(Book book, BookInfoPresenterCallback callback) {
+        new Thread(() -> {
+            if(database.remakeBookInDatabase(book)) {
+                callback.endRemakeBook();
+            } else {
+                callback.onError("Unknown error when remake book");
+            }
+        }).start();
+    }
 }

@@ -121,6 +121,12 @@ public class BookInfoActivity extends AppCompatActivity implements BookInfoView 
     }
 
     @Override
+    public void onBookRemaded() {
+        finish();
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+    }
+
+    @Override
     public void onBookLoaded(Book book) {
         try{
             runOnUiThread(() -> {
@@ -162,7 +168,8 @@ public class BookInfoActivity extends AppCompatActivity implements BookInfoView 
                         if(getIntent().getStringExtra(BOOK_TOKEN) != null) {
                             presenter.startLoadBookFromDB(getIntent().getStringExtra(BOOK_TOKEN), this);
                             actionButton.setOnClickListener(view -> {
-
+                                inputError.setVisibility(View.INVISIBLE);
+                                presenter.startRemakeBook(getIntent().getStringExtra(BOOK_TOKEN), this);
                             });
                         }
                         break;

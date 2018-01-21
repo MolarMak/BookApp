@@ -12,6 +12,7 @@ public interface BookInfoPresenterCallback {
     void endAddBook();
     void startLoadBookFromDB(String token, BookInfoView view);
     void endLoadBookFromDB(Book book);
-    void startRemakeBook(BookInfoView view);
+    void startRemakeBook(String token, BookInfoView view);
+    void endRemakeBook();
     void onError(String error);
 }

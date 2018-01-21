@@ -1,5 +1,6 @@
 package com.molarmak.bookapp.storage.Hand;
 
+import com.j256.ormlite.stmt.UpdateBuilder;
 import com.molarmak.bookapp.helper.GenerateToken;
 import com.molarmak.bookapp.storage.Items.Book;
 
@@ -37,6 +38,23 @@ public class Database {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public boolean remakeBookInDatabase(Book book) {
+        try {
+            UpdateBuilder<Book, Integer> updateBuilder = HelperFactory.getHelper().getBookDAO().updateBuilder();
+            updateBuilder.where().eq(Book.FIELD_NAME_TOKEN, book.getToken());
+            updateBuilder.updateColumnValue(Book.FIELD_NAME_IMAGE, book.getImage());
+            updateBuilder.updateColumnValue(Book.FIELD_NAME_BOOK_NAME, book.getName());
+            updateBuilder.updateColumnValue(Book.FIELD_NAME_AUTHOR, book.getAuthor());
+            updateBuilder.updateColumnValue(Book.FIELD_NAME_GENRE, book.getGenre());
+            updateBuilder.updateColumnValue(Book.FIELD_NAME_PAGES, book.getPages());
+            updateBuilder.update();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public List<Book> loadBookList() {
