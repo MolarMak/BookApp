@@ -147,6 +147,16 @@ public class BookInfoActivity extends AppCompatActivity implements BookInfoView 
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        try {
+            finish();
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void setupButtonClick() {
         try {
             String bookChangeType = getIntent().getStringExtra(BOOK_TYPE);
