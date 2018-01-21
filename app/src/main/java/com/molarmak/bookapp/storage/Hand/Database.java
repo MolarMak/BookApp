@@ -1,5 +1,6 @@
 package com.molarmak.bookapp.storage.Hand;
 
+import com.molarmak.bookapp.helper.GenerateToken;
 import com.molarmak.bookapp.storage.Items.Book;
 
 import java.util.ArrayList;
@@ -11,8 +12,15 @@ import java.util.List;
 
 public class Database {
 
-    private void saveBookToDatabase(Book book) {
-        //todo generate token
+    public boolean saveBookToDatabase(Book book) {
+        try {
+            book.setToken(GenerateToken.generate());
+            HelperFactory.getHelper().getBookDAO().create(book);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public boolean deleteBookFromDatabase(String token) {

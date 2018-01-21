@@ -118,7 +118,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                 } else viewHolder.bookGenre.setText("");
 
                 if(Item.getPages() > 0) {
-                    viewHolder.bookPages.setText(Item.getPages() + "стр.");
+                    viewHolder.bookPages.setText(Item.getPages() + " стр.");
                 } else viewHolder.bookPages.setText("");
 
                 viewHolder.itemView.setOnClickListener(view -> {

@@ -1,0 +1,16 @@
+package com.molarmak.bookapp.helper;
+
+import java.security.SecureRandom;
+
+/**
+ * Created by Maxim on 1/21/18.
+ */
+
+public class GenerateToken {
+    public static String generate() {
+        SecureRandom random = new SecureRandom();
+        byte bytes[] = new byte[20];
+        random.nextBytes(bytes);
+        return bytes.toString();
+    }
+}
