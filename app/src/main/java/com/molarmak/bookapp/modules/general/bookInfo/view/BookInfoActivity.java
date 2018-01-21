@@ -1,5 +1,10 @@
 package com.molarmak.bookapp.modules.general.bookInfo.view;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +23,7 @@ public class BookInfoActivity extends AppCompatActivity {
     public static final String BOOK_TYPE = "book_type";
     public static final String BOOK_ADD = "add_book";
     public static final String BOOK_CHANGE = "change_book";
+    public static final int GET_FROM_GALLERY = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +37,24 @@ public class BookInfoActivity extends AppCompatActivity {
             bookPages = findViewById(R.id.bookPages);
             actionButton = findViewById(R.id.actionButton);
             setupButtonClick();
+            bookImage.setOnClickListener(view ->
+                    startActivityForResult(new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        try {
+            if(requestCode==GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
+                Uri selectedImage = data.getData();
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+                int nh = (int) ( bitmap.getHeight() * (512.0 / bitmap.getWidth()) );
+                Bitmap scaled = Bitmap.createScaledBitmap(bitmap, 512, nh, true);
+                bookImage.setImageBitmap(scaled);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
