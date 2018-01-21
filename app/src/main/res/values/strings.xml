@@ -29,4 +29,5 @@
     <string name="setupBookListError">Setup Book List error</string>
     <string name="runMainThreadError">Run On Main Thread error</string>
     <string name="addBookInListError">Add Book in List error</string>
+    <string name="fillData">Error when fill book data</string>
 </resources>

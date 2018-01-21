@@ -33,7 +33,6 @@ public class BookInfoActivity extends AppCompatActivity implements BookInfoView 
     public static final String BOOK_TYPE = "book_type";
     public static final String BOOK_ADD = "add_book";
     public static final String BOOK_TOKEN = "book_token";
-    public static final String BOOK_IMAGE = "book_image";
     public static final String BOOK_CHANGE = "change_book";
     public static final int GET_FROM_GALLERY = 1;
 
@@ -102,7 +101,7 @@ public class BookInfoActivity extends AppCompatActivity implements BookInfoView 
                 }
             });
         } catch (Exception e) {
-            onError("Run On Main Thread error");
+            onError(getString(R.string.runMainThreadError));
             e.printStackTrace();
         }
     }
@@ -115,7 +114,7 @@ public class BookInfoActivity extends AppCompatActivity implements BookInfoView 
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
             });
         } catch (Exception e) {
-            onError("Run On Main Thread error");
+            onError(getString(R.string.runMainThreadError));
             e.printStackTrace();
         }
     }
@@ -137,12 +136,12 @@ public class BookInfoActivity extends AppCompatActivity implements BookInfoView 
                     bookGenre.setText(book.getGenre());
                     bookPages.setText(String.valueOf(book.getPages()));
                 } catch (Exception e) {
-                    onError("Error when fill book data");
+                    onError(getString(R.string.fillData));
                     e.printStackTrace();
                 }
             });
         } catch (Exception e) {
-            onError("Run On Main Thread error");
+            onError(getString(R.string.runMainThreadError));
             e.printStackTrace();
         }
     }

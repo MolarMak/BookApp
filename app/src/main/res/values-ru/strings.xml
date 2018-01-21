@@ -29,4 +29,5 @@
     <string name="setupBookListError">Ошибка при показе списка книг</string>
     <string name="runMainThreadError">Ошибка работы главного потока</string>
     <string name="addBookInListError">Ошибка добавления ениги в список</string>
+    <string name="fillData">Ошибка при заполнении полей</string>
 </resources>
