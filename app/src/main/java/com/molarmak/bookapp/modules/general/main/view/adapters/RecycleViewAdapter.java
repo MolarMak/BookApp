@@ -1,10 +1,11 @@
 package com.molarmak.bookapp.modules.general.main.view.adapters;
 
-import android.content.ClipData;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.TypedValue;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 
 import com.molarmak.bookapp.R;
 import com.molarmak.bookapp.helper.OnSwipeTouchListener;
+import com.molarmak.bookapp.modules.general.bookInfo.view.BookInfoActivity;
 import com.molarmak.bookapp.modules.general.main.presenter.MainPresenterCallback;
 import com.molarmak.bookapp.modules.general.main.view.MainView;
 import com.molarmak.bookapp.storage.Items.Book;
@@ -118,6 +120,19 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                 if(Item.getPages() > 0) {
                     viewHolder.bookPages.setText(Item.getPages() + "стр.");
                 } else viewHolder.bookPages.setText("");
+
+                viewHolder.itemView.setOnClickListener(view -> {
+                    try {
+                        if (viewHolder.itemView.getTranslationX() == 0) {
+                            ((AppCompatActivity) context).finish();
+                            Intent intent = new Intent(context, BookInfoActivity.class);
+                            intent.putExtra(BookInfoActivity.BOOK_TYPE, BookInfoActivity.BOOK_CHANGE);
+                            context.startActivity(intent);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
             }
         } catch (Exception e) {
             e.printStackTrace();

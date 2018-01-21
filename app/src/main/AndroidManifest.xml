@@ -21,7 +21,8 @@
         <activity
             android:name=".modules.general.main.view.MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".modules.general.bookInfo.view.BookInfoActivity"/>
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.molarmak.bookapp.modules.general.main.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.molarmak.bookapp.R;
+import com.molarmak.bookapp.modules.general.bookInfo.view.BookInfoActivity;
 import com.molarmak.bookapp.modules.general.main.presenter.MainPresenter;
 import com.molarmak.bookapp.modules.general.main.presenter.MainPresenterCallback;
 import com.molarmak.bookapp.modules.general.main.view.adapters.RecycleViewAdapter;
@@ -44,6 +46,16 @@ public class MainActivity extends AppCompatActivity implements MainView {
         textEmptyList = findViewById(R.id.textEmptyList);
         fab = (FloatingActionButton) findViewById(R.id.fab);
         adapter = new RecycleViewAdapter(this, presenter);
+        fab.setOnClickListener(view -> {
+            try {
+                finish();
+                Intent i = new Intent(getApplicationContext(), BookInfoActivity.class);
+                i.putExtra(BookInfoActivity.BOOK_TYPE, BookInfoActivity.BOOK_ADD);
+                startActivity(i);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setupBookList();
