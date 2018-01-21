@@ -4,6 +4,8 @@ import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.util.Arrays;
+
 /**
  * Created by Maxim on 1/20/18.
  */
@@ -17,7 +19,7 @@ public class Book {
     public static final String FIELD_NAME_IMAGE = "image";
     public static final String FIELD_NAME_BOOK_NAME = "book_name";
     public static final String FIELD_NAME_AUTHOR = "author";
-    public static final String FIELD_NAME_GENDER = "gender";
+    public static final String FIELD_NAME_GENRE = "genre";
     public static final String FIELD_NAME_PAGES = "pages";
 
     @DatabaseField(columnName = FIELD_NAME_ID, generatedId = true)
@@ -35,8 +37,8 @@ public class Book {
     @DatabaseField(columnName = FIELD_NAME_AUTHOR)
     private String author;
 
-    @DatabaseField(columnName = FIELD_NAME_GENDER)
-    private String gender;
+    @DatabaseField(columnName = FIELD_NAME_GENRE)
+    private String genre;
 
     @DatabaseField(columnName = FIELD_NAME_PAGES)
     private int pages;
@@ -73,12 +75,12 @@ public class Book {
         this.author = author;
     }
 
-    public String getGender() {
-        return gender;
+    public String getGenre() {
+        return genre;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
     public int getPages() {
@@ -87,5 +89,18 @@ public class Book {
 
     public void setPages(int pages) {
         this.pages = pages;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", token='" + token + '\'' +
+                ", image=" + Arrays.toString(image) +
+                ", name='" + name + '\'' +
+                ", author='" + author + '\'' +
+                ", genre='" + genre + '\'' +
+                ", pages=" + pages +
+                '}';
     }
 }

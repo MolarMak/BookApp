@@ -37,15 +37,35 @@ public class BookInfoPresenter implements BookInfoPresenterCallback {
     }
 
     @Override
-    public void errorAddBook(String error) {
+    public void startLoadBookFromDB(String token, BookInfoView view) {
+        try {
+            this.view = view;
+            service.getBook(token, this);
+        } catch (Exception e) {
+            onError("Error when start load book info");
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void endLoadBookFromDB(Book book) {
         if(view != null) {
-            view.onError(error);
-        } else Log.e(TAG, "view null " + error);
+            if(book != null) {
+                view.onBookLoaded(book);
+            } else onError("Unhandled error when load book");
+        } else Log.e(TAG, "view null, but book loaded");
     }
 
     @Override
     public void startRemakeBook(BookInfoView view) {
 
+    }
+
+    @Override
+    public void onError(String error) {
+        if(view != null) {
+            view.onError(error);
+        } else Log.e(TAG, "view null " + error);
     }
 
     private Book startValidateInput() {
@@ -72,7 +92,7 @@ public class BookInfoPresenter implements BookInfoPresenterCallback {
                 return null;
             }
 
-            if(book.getGender().length() < 1) {
+            if(book.getGenre().length() < 1) {
                 view.onError("Ошибка при заполнении жанра книги");
                 return null;
             }

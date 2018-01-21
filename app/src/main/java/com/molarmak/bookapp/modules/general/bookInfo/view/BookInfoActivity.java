@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.molarmak.bookapp.R;
+import com.molarmak.bookapp.helper.SetImage;
 import com.molarmak.bookapp.modules.general.bookInfo.presenter.BookInfoPresenter;
 import com.molarmak.bookapp.modules.general.bookInfo.presenter.BookInfoPresenterCallback;
 import com.molarmak.bookapp.modules.general.main.view.MainActivity;
@@ -31,6 +32,8 @@ public class BookInfoActivity extends AppCompatActivity implements BookInfoView 
 
     public static final String BOOK_TYPE = "book_type";
     public static final String BOOK_ADD = "add_book";
+    public static final String BOOK_TOKEN = "book_token";
+    public static final String BOOK_IMAGE = "book_image";
     public static final String BOOK_CHANGE = "change_book";
     public static final int GET_FROM_GALLERY = 1;
 
@@ -79,7 +82,7 @@ public class BookInfoActivity extends AppCompatActivity implements BookInfoView 
             book.setImage(getByteArray());
             book.setName(bookName.getText().toString());
             book.setAuthor(bookAuthor.getText().toString());
-            book.setGender(bookGenre.getText().toString());
+            book.setGenre(bookGenre.getText().toString());
             book.setPages(getPages());
         } catch (Exception e) {
             e.printStackTrace();
@@ -117,6 +120,27 @@ public class BookInfoActivity extends AppCompatActivity implements BookInfoView 
         }
     }
 
+    @Override
+    public void onBookLoaded(Book book) {
+        try{
+            runOnUiThread(() -> {
+                try {
+                    SetImage.setImage(bookImage, book.getImage());
+                    bookName.setText(book.getName());
+                    bookAuthor.setText(book.getAuthor());
+                    bookGenre.setText(book.getGenre());
+                    bookPages.setText(String.valueOf(book.getPages()));
+                } catch (Exception e) {
+                    onError("Error when fill book data");
+                    e.printStackTrace();
+                }
+            });
+        } catch (Exception e) {
+            onError("Run On Main Thread error");
+            e.printStackTrace();
+        }
+    }
+
     private void setupButtonClick() {
         try {
             String bookChangeType = getIntent().getStringExtra(BOOK_TYPE);
@@ -135,9 +159,12 @@ public class BookInfoActivity extends AppCompatActivity implements BookInfoView 
                         break;
                     case BOOK_CHANGE:
                         actionButton.setText("Изменить");
-                        actionButton.setOnClickListener(view -> {
+                        if(getIntent().getStringExtra(BOOK_TOKEN) != null) {
+                            presenter.startLoadBookFromDB(getIntent().getStringExtra(BOOK_TOKEN), this);
+                            actionButton.setOnClickListener(view -> {
 
-                        });
+                            });
+                        }
                         break;
                 }
             }

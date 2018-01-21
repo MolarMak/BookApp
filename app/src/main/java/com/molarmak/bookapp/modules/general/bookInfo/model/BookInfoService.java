@@ -17,8 +17,12 @@ public class BookInfoService {
             if(database.saveBookToDatabase(book)) {
                 callback.endAddBook();
             } else {
-                callback.errorAddBook("Unknown error when add book");
+                callback.onError("Unknown error when add book");
             }
         }).start();
+    }
+
+    public void getBook(String token, BookInfoPresenterCallback callback) {
+        new Thread(() -> callback.endLoadBookFromDB(database.getBookByToken(token))).start();
     }
 }

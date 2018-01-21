@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.molarmak.bookapp.R;
 import com.molarmak.bookapp.helper.OnSwipeTouchListener;
+import com.molarmak.bookapp.helper.SetImage;
 import com.molarmak.bookapp.modules.general.bookInfo.view.BookInfoActivity;
 import com.molarmak.bookapp.modules.general.main.presenter.MainPresenterCallback;
 import com.molarmak.bookapp.modules.general.main.view.MainView;
@@ -101,9 +102,9 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
                 if(Item.getImage() != null) {
                     if(Item.getImage().length > 0) {
-                        setImage(viewHolder.bookImage, Item.getImage());
-                    } else setImage(viewHolder.bookImage, new byte[5]);
-                } else setImage(viewHolder.bookImage, new byte[5]);
+                        SetImage.setImage(viewHolder.bookImage, Item.getImage());
+                    } else SetImage.setImage(viewHolder.bookImage, new byte[5]);
+                } else SetImage.setImage(viewHolder.bookImage, new byte[5]);
 
                 if(Item.getName() != null) {
                     viewHolder.bookName.setText(Item.getName());
@@ -113,26 +114,13 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                     viewHolder.bookAuthor.setText(Item.getAuthor());
                 } else viewHolder.bookAuthor.setText("");
 
-                if(Item.getGender() != null) {
-                    viewHolder.bookGenre.setText(Item.getGender());
+                if(Item.getGenre() != null) {
+                    viewHolder.bookGenre.setText(Item.getGenre());
                 } else viewHolder.bookGenre.setText("");
 
                 if(Item.getPages() > 0) {
                     viewHolder.bookPages.setText(Item.getPages() + " стр.");
                 } else viewHolder.bookPages.setText("");
-
-                viewHolder.itemView.setOnClickListener(view -> {
-                    try {
-                        if (viewHolder.itemView.getTranslationX() == 0) {
-                            ((AppCompatActivity) context).finish();
-                            Intent intent = new Intent(context, BookInfoActivity.class);
-                            intent.putExtra(BookInfoActivity.BOOK_TYPE, BookInfoActivity.BOOK_CHANGE);
-                            context.startActivity(intent);
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                });
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -169,6 +157,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
                 public void onSingleTapUp() {
                     if(viewHolder.infoLayout.getTranslationX() != 0) {
                         onSwipeRight();
+                    } else {
+                        navigateToRemakeScreen(token);
                     }
                 }
             };
@@ -186,13 +176,14 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         }
     }
 
-    private void setImage(ImageView imageView, byte[] data) {
+    private void navigateToRemakeScreen(String token) {
         try {
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inMutable = true;
-            Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length, options);
-            imageView.setImageBitmap(bmp);
-        } catch (Exception e) {
+            ((AppCompatActivity) context).finish();
+            Intent intent = new Intent(context, BookInfoActivity.class);
+            intent.putExtra(BookInfoActivity.BOOK_TYPE, BookInfoActivity.BOOK_CHANGE);
+            intent.putExtra(BookInfoActivity.BOOK_TOKEN, token);
+            context.startActivity(intent);
+        } catch (Throwable e) {
             e.printStackTrace();
         }
     }

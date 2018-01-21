@@ -47,4 +47,18 @@ public class Database {
         }
         return new ArrayList<>();
     }
+
+    public Book getBookByToken(String token) {
+        try {
+            List<Book> bookList = loadBookList();
+            for(int i = 0; i < bookList.size(); i++) {
+                if(bookList.get(i).getToken().equals(token)) {
+                    return bookList.get(i);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
