@@ -10,9 +10,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="50dp"
         android:gravity="center"
-        android:textSize="32dp"
+        android:textSize="32sp"
         android:layout_centerVertical="true"
-        android:text="Welcome to BookApp!"/>
+        android:text="@string/welcome"/>
 
     <Button
         android:id="@+id/startButton"
@@ -23,6 +23,6 @@
         android:layout_marginBottom="20dp"
         android:backgroundTint="@color/colorPrimaryDark"
         android:textColor="@android:color/white"
-        android:text="Начать"/>
+        android:text="@string/start"/>
 
 </RelativeLayout>

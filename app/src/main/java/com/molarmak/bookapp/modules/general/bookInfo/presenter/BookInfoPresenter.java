@@ -1,7 +1,10 @@
 package com.molarmak.bookapp.modules.general.bookInfo.presenter;
 
+import android.content.Context;
 import android.util.Log;
 
+import com.molarmak.bookapp.R;
+import com.molarmak.bookapp.helper.MyApplication;
 import com.molarmak.bookapp.modules.general.bookInfo.model.BookInfoService;
 import com.molarmak.bookapp.modules.general.bookInfo.view.BookInfoView;
 import com.molarmak.bookapp.storage.Items.Book;
@@ -15,6 +18,7 @@ public class BookInfoPresenter implements BookInfoPresenterCallback {
     private BookInfoView view;
     private BookInfoService service = new BookInfoService();
     private final String TAG = "BookInfoPresenter";
+    private Context context = MyApplication.getContext();
 
     @Override
     public void startAddBook(BookInfoView view) {
@@ -42,7 +46,7 @@ public class BookInfoPresenter implements BookInfoPresenterCallback {
             this.view = view;
             service.getBook(token, this);
         } catch (Exception e) {
-            onError("Error when start load book info");
+            onError(context.getString(R.string.errorLoadBookInfo));
             e.printStackTrace();
         }
     }
@@ -52,7 +56,7 @@ public class BookInfoPresenter implements BookInfoPresenterCallback {
         if(view != null) {
             if(book != null) {
                 view.onBookLoaded(book);
-            } else onError("Unhandled error when load book");
+            } else onError(context.getString(R.string.errorLoadBookInfo));
         } else Log.e(TAG, "view null, but book loaded");
     }
 
@@ -89,38 +93,38 @@ public class BookInfoPresenter implements BookInfoPresenterCallback {
             Book book = view.getBookInfo();
 
             if(book == null) {
-                view.onError("Ошибка ввода данных");
+                view.onError(context.getString(R.string.errorInput));
                 return null;
             }
 
             if(book.getImage().length == 0) {
-                view.onError("Ошибка при заполнении фотографии");
+                view.onError(context.getString(R.string.errorPhotoInput));
                 return null;
             }
 
             if(book.getName().length() < 1) {
-                view.onError("Ошибка при заполнении имени книги");
+                view.onError(context.getString(R.string.errorNameInput));
                 return null;
             }
 
             if(book.getAuthor().length() < 1) {
-                view.onError("Ошибка при заполнении автора книги");
+                view.onError(context.getString(R.string.errorAuthorInput));
                 return null;
             }
 
             if(book.getGenre().length() < 1) {
-                view.onError("Ошибка при заполнении жанра книги");
+                view.onError(context.getString(R.string.errorGenreInput));
                 return null;
             }
 
             if(book.getPages() == 0) {
-                view.onError("Ошибка при заполнении страниц книги");
+                view.onError(context.getString(R.string.errorPagesInput));
                 return null;
             }
 
             return book;
         } catch (Exception e) {
-            view.onError("Ошибка ввода данных");
+            view.onError(context.getString(R.string.errorInput));
             e.printStackTrace();
         }
         return null;

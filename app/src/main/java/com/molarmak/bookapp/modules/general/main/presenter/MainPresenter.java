@@ -1,7 +1,10 @@
 package com.molarmak.bookapp.modules.general.main.presenter;
 
+import android.content.Context;
 import android.util.Log;
 
+import com.molarmak.bookapp.R;
+import com.molarmak.bookapp.helper.MyApplication;
 import com.molarmak.bookapp.modules.general.main.model.BookService;
 import com.molarmak.bookapp.modules.general.main.view.MainView;
 import com.molarmak.bookapp.storage.Items.Book;
@@ -16,6 +19,7 @@ public class MainPresenter implements MainPresenterCallback {
 
     private MainView view;
     private BookService service = new BookService();
+    private Context context = MyApplication.getContext();
     private final String TAG = "MainPresenter";
 
     @Override
@@ -24,7 +28,7 @@ public class MainPresenter implements MainPresenterCallback {
             this.view = view;
             service.loadBookFromDatabase(this);
         } catch (Exception e) {
-            onError("Unhandled error when start load book list");
+            onError(context.getString(R.string.errorLoadBookList));
             e.printStackTrace();
         }
     }
@@ -34,7 +38,7 @@ public class MainPresenter implements MainPresenterCallback {
         try {
             view.onBookListLoaded(bookList);
         } catch (Exception e) {
-            onError("Unhandled error when end load book list");
+            onError(context.getString(R.string.errorLoadBookList));
             e.printStackTrace();
         }
     }
@@ -44,7 +48,7 @@ public class MainPresenter implements MainPresenterCallback {
         try {
             service.deleteBookFromDatabase(this, token);
         } catch (Exception e) {
-            onError("Unhandled error when start delete book");
+            onError(context.getString(R.string.errorDeleteBook));
             e.printStackTrace();
         }
     }
@@ -54,7 +58,7 @@ public class MainPresenter implements MainPresenterCallback {
         try {
             view.onBookDeleted(token);
         } catch (Exception e) {
-            onError("Unhandled error when end delete book");
+            onError(context.getString(R.string.errorDeleteBook));
             e.printStackTrace();
         }
     }

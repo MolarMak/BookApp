@@ -153,7 +153,7 @@ public class BookInfoActivity extends AppCompatActivity implements BookInfoView 
             if(getIntent().getStringExtra(BOOK_TYPE) != null) {
                 switch (bookChangeType) {
                     case BOOK_ADD:
-                        actionButton.setText("Добавить");
+                        actionButton.setText(getString(R.string.add));
                         actionButton.setOnClickListener(view -> {
                             try {
                                 inputError.setVisibility(View.INVISIBLE);
@@ -164,7 +164,7 @@ public class BookInfoActivity extends AppCompatActivity implements BookInfoView 
                         });
                         break;
                     case BOOK_CHANGE:
-                        actionButton.setText("Изменить");
+                        actionButton.setText(getString(R.string.change));
                         if(getIntent().getStringExtra(BOOK_TOKEN) != null) {
                             presenter.startLoadBookFromDB(getIntent().getStringExtra(BOOK_TOKEN), this);
                             actionButton.setOnClickListener(view -> {

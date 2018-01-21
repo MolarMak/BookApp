@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
             swipeContainer.setOnRefreshListener(() -> presenter.onStartLoadBookList(MainActivity.this));
             presenter.onStartLoadBookList(this);
         } catch (Exception e) {
-            onError("Setup Book List error");
+            onError(getString(R.string.setupBookListError));
             e.printStackTrace();
         }
     }
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
                 }
             });
         } catch (Exception e) {
-            onError("Run On Main Thread error");
+            onError(getString(R.string.runMainThreadError));
             e.printStackTrace();
         }
     }
@@ -99,12 +99,12 @@ public class MainActivity extends AppCompatActivity implements MainView {
                     adapter.addBookList(bookList);
                     swipeContainer.setRefreshing(false);
                 } catch (Exception e) {
-                    onError("Add Book in List error");
+                    onError(getString(R.string.addBookInListError));
                     e.printStackTrace();
                 }
             });
         } catch (Exception e) {
-            onError("Run On Main Thread error");
+            onError(getString(R.string.runMainThreadError));
             e.printStackTrace();
         }
     }
@@ -116,12 +116,12 @@ public class MainActivity extends AppCompatActivity implements MainView {
                 try {
                     adapter.removeBook(token);
                 } catch (Exception e) {
-                    onError("Add Book in List error");
+                    onError(getString(R.string.addBookInListError));
                     e.printStackTrace();
                 }
             });
         } catch (Exception e) {
-            onError("Run On Main Thread error");
+            onError(getString(R.string.runMainThreadError));
             e.printStackTrace();
         }
     }

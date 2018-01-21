@@ -1,5 +1,9 @@
 package com.molarmak.bookapp.modules.general.bookInfo.model;
 
+import android.content.Context;
+
+import com.molarmak.bookapp.R;
+import com.molarmak.bookapp.helper.MyApplication;
 import com.molarmak.bookapp.modules.general.bookInfo.presenter.BookInfoPresenterCallback;
 import com.molarmak.bookapp.storage.Hand.Database;
 import com.molarmak.bookapp.storage.Items.Book;
@@ -11,13 +15,14 @@ import com.molarmak.bookapp.storage.Items.Book;
 public class BookInfoService {
 
     private Database database = new Database();
+    private Context context = MyApplication.getContext();
 
     public void addBook(Book book, BookInfoPresenterCallback callback) {
         new Thread(() -> {
             if(database.saveBookToDatabase(book)) {
                 callback.endAddBook();
             } else {
-                callback.onError("Unknown error when add book");
+                callback.onError(context.getString(R.string.errorAddBook));
             }
         }).start();
     }
@@ -31,7 +36,7 @@ public class BookInfoService {
             if(database.remakeBookInDatabase(book)) {
                 callback.endRemakeBook();
             } else {
-                callback.onError("Unknown error when remake book");
+                callback.onError(context.getString(R.string.errorRemakeBook));
             }
         }).start();
     }

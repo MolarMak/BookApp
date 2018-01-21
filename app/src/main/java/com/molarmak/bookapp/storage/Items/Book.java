@@ -4,8 +4,6 @@ import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-import java.util.Arrays;
-
 /**
  * Created by Maxim on 1/20/18.
  */
@@ -89,18 +87,5 @@ public class Book {
 
     public void setPages(int pages) {
         this.pages = pages;
-    }
-
-    @Override
-    public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", token='" + token + '\'' +
-                ", image=" + Arrays.toString(image) +
-                ", name='" + name + '\'' +
-                ", author='" + author + '\'' +
-                ", genre='" + genre + '\'' +
-                ", pages=" + pages +
-                '}';
     }
 }

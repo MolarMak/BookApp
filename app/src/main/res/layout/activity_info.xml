@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:padding="15dp"
             android:textColor="@android:color/white"
-            android:text="Пропустить"/>
+            android:text="@string/skip"/>
 
     </LinearLayout>
 
